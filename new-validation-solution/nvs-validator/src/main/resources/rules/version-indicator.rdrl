@@ -1,0 +1,12 @@
+package com.wipro.holmes.uhg.enb.nvs.models;
+
+import java.util.Optional;
+import com.wipro.holmes.uhg.enb.nvs.models.Field;
+
+rule "version-indicator"
+	dialect "mvel"
+	when
+		field : Field( name == "Version Indicator" && ( value.length() != ( size ) || value matches ( "^(?!V1.[35]0$).*$" ) ))
+	then
+		field.setError( Optional.of("Invalid Version Indicator!") );
+end

@@ -1,0 +1,12 @@
+package com.wipro.holmes.uhg.enb.nvs.models;
+
+import java.util.Optional;
+import com.wipro.holmes.uhg.enb.nvs.models.Field;
+
+rule "member-gender_1"
+	dialect "mvel"
+	when
+		field : Field( name == "Member Gender" )
+	then
+		field.setError( Optional.of("Member Gender Can Only Be M or F!") );
+end

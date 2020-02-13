@@ -1,0 +1,11 @@
+package com.wipro.holmes.uhg.enb.nvs.models;
+
+import java.lang.Number;
+
+rule "employment-date"
+	dialect "mvel"
+	when
+		field : Field( name == "Employment Date" && ( value.length() != ( size ) || value.trim().length() <= 0 ))
+	then
+		field.setError( Optional.of("Employment Date Cannot Be Blank!") );
+end
