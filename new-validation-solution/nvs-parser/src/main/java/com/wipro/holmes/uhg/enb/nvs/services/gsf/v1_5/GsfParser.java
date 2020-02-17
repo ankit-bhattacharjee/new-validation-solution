@@ -1,24 +1,38 @@
-package com.wipro.holmes.uhg.enb.nvs.services.parsers.gsf.v1_5;
+package com.wipro.holmes.uhg.enb.nvs.services.gsf.v1_5;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Path;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import com.wipro.holmes.uhg.enb.nvs.models.Field;
 import com.wipro.holmes.uhg.enb.nvs.models.Record;
-import com.wipro.holmes.uhg.enb.nvs.models.gsf.v1_5.Fields.File;
-import com.wipro.holmes.uhg.enb.nvs.models.gsf.v1_5.Fields.Header;
-import com.wipro.holmes.uhg.enb.nvs.services.parsers.Parser;
+import com.wipro.holmes.uhg.enb.nvs.services.Parser;
+import com.wipro.holmes.uhg.enb.nvs.specs.gsf.v1_5.Fields.File;
+import com.wipro.holmes.uhg.enb.nvs.specs.gsf.v1_5.Fields.Header;
 
 @Service("GSF_1.5")
 public class GsfParser implements Parser<Record> {
 
 	@Override
-	public Record parse(String line) throws ParseException {
-		Record record = new Record();
-		if (line.length() == 28)
-			parseHeaderFields(record, line);
-		else
-			parseFileFields(record, line);
-		return record;
+	public Collection<Record> parse(Path file) throws ParseException, IOException {
+		List<Record> records = new ArrayList<>();
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(read(file)))) {
+			while (reader.ready()) {
+				String line = reader.readLine();
+				Record record = new Record();
+				if (line.length() == 28)
+					parseHeaderFields(record, line);
+				else
+					parseFileFields(record, line);
+				records.add(record);
+			}
+		}
+		return records;
 	}
 
 	private void parseHeaderFields(Record record, String line) throws ParseException {

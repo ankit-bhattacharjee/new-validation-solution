@@ -1,4 +1,4 @@
-package com.wipro.holmes.uhg.enb.nvs.models.gsf.v1_5;
+package com.wipro.holmes.uhg.enb.nvs.specs.gsf.v1_5;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
