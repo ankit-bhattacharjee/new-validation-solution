@@ -37,7 +37,7 @@ public class GsfParser implements Parser<Record> {
 
 	private void parseHeaderFields(Record record, String line) throws ParseException {
 		for (Header header : Header.values()) {
-			record.getFields().put(header.toString(), Field.builder().size(header.getSize()).name(header.toString())
+			record.getFields().put(header.toString(), Field.builder().name(header.toString())
 					.value(line.substring(header.getBegin() - 1, header.getEnd())).build());
 		}
 	}
@@ -46,7 +46,7 @@ public class GsfParser implements Parser<Record> {
 		for (File file : File.values()) {
 			if (line.length() < file.getEnd())
 				break;
-			record.getFields().put(file.toString(), Field.builder().size(file.getSize()).name(file.toString())
+			record.getFields().put(file.toString(), Field.builder().name(file.toString())
 					.value(line.substring(file.getBegin() - 1, file.getEnd())).build());
 		}
 	}
