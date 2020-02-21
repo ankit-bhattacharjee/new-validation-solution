@@ -2,34 +2,15 @@ package com.wipro.holmes.uhg.enb.nvs.models;
 
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class Field {
-	private final String name;
-	private final String value;
-	private Optional<String> error;
-
-	public Field(String name, String value) {
-		super();
-		this.name = name;
-		this.value = value;
-		error = Optional.empty();
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public Optional<String> getError() {
-		return error;
-	}
-
-	public void setError(Optional<String> error) {
-		this.error = error;
-	}
+	private String name;
+	private String value;
+	private Optional<String> error = Optional.empty();
 
 }

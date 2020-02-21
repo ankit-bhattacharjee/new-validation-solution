@@ -50,6 +50,10 @@
 			<artifactId>drools-workbench-models-guided-template</artifactId>
 			<version>7.31.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
 
 	</dependencies>
 

@@ -3,7 +3,7 @@
 	xmlns="http://www.drools.org/xsd/kmodule">
 
 	<kbase name="rules" packages="rules" default="true">
-		<ksession name="HelloWorldKS" />
+		<ksession name="validator" />
 	</kbase>
 
 </kmodule>

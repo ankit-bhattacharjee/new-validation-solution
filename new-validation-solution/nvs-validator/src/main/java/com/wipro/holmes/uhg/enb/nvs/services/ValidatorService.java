@@ -1,22 +1,20 @@
 package com.wipro.holmes.uhg.enb.nvs.services;
 
-import java.util.Collection;
 import com.wipro.holmes.uhg.enb.nvs.exceptions.ValidatorException;
-import com.wipro.holmes.uhg.enb.nvs.models.ValidateStrategy;
 
 public interface ValidatorService<T> {
 
 	/*
-	 * Validates Collection, using Business Rules, based on Strategy.
+	 * Validates Streaming Records of type T, using Business Rules. Listens to a
+	 * Producer channel and performs validation after which, the domain model is
+	 * pushed to another stream for consumption.
 	 * 
-	 * @param Collection<T>, ValidateStrategy to be used
+	 * @param T record
 	 * 
-	 * @return Collection<T> objects parsed from the file, by lines
-	 * 
-	 * @throws IOException, ParseException
+	 * @throws ValidatorException
 	 * 
 	 */
 
-	Collection<T> validate(Collection<T> records, ValidateStrategy strategy) throws ValidatorException;
+	void validateAndPublish(T record) throws ValidatorException;
 
 }

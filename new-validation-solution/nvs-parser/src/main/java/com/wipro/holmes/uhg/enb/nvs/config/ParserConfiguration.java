@@ -31,26 +31,4 @@ public class ParserConfiguration {
 		return new KafkaTemplate<>(producerFactory());
 	}
 
-//	@Bean
-//	public ConsumerFactory<String, Record> consumerFactory() {
-//		Map<String, Object> props = new HashMap<>();
-//		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-//		props.put(ConsumerConfig.GROUP_ID_CONFIG, "parser-producers");
-//		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-//		return new DefaultKafkaConsumerFactory<>(props);
-//	}
-//
-//	@Bean
-//	public ConcurrentKafkaListenerContainerFactory<String, Record> kafkaListenerContainerFactory() {
-//		ConcurrentKafkaListenerContainerFactory<String, Record> factory = new ConcurrentKafkaListenerContainerFactory<>();
-//		factory.setConsumerFactory(consumerFactory());
-//		return factory;
-//	}
-
-//	@KafkaListener(topics = "parser-producers", containerFactory = "kafkaListenerContainerFactory")
-//	public void greetingListener(Record record) {
-//		record.getFields().values().forEach(System.out::println);
-//	}
-
 }
