@@ -1,10 +1,8 @@
 package com.wipro.holmes.uhg.enb.nvs.services.validators.gsf.v1_5;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResource;
@@ -27,7 +25,7 @@ public class GsfValidatorTest {
 		for (File file : File.values()) {
 			if (line.length() < file.getEnd())
 				break;
-			record.getFields().put(file.toString(), Field.builder().size(file.getSize()).name(file.toString())
+			record.getFields().put(file.toString(), Field.builder().name(file.toString())
 					.value(line.substring(file.getBegin() - 1, file.getEnd())).build());
 		}
 		// System.out.println(record.getFields().values());

@@ -2,11 +2,11 @@ package com.wipro.holmes.uhg.enb.nvs.services.gsf.v1_5;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.util.List;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,169 +34,63 @@ public class GsfParserTests {
 
 	@Test
 	public void parseHeaderFieldsFlowTest() throws ParseException, IOException {
-		List<Record> record = Lists.newArrayList(parser.parse(path));
-		assertNotNull(record);
-		assertEquals(headerFieldsCount, record.get(0).getFields().size());
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+			if (reader.ready()) {
+				Record record = parser.parse(reader.readLine());
+				assertNotNull(record);
+				assertEquals(headerFieldsCount, record.getFields().size());
+			}
+		}
 	}
 
 	@Test
 	public void parseHeaderFieldsLengthTest() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(0);
-		for (Header header : Header.values()) {
-			assertEquals(header.getSize(), record.getFields().get(header.toString()).getValue().length());
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+			if (reader.ready()) {
+				Record record = parser.parse(reader.readLine());
+				for (Header header : Header.values()) {
+					assertEquals(header.getSize(), record.getFields().get(header.toString()).getValue().length());
+				}
+			}
 		}
 	}
 
 	@Test
 	public void parseHeaderFieldsValueTest() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(0);
-		record.getFields().keySet().stream()
-				.forEach(key -> System.out.format("Key : [%s], Value : [%s]" + System.lineSeparator(), key,
-						record.getFields().get(key).getValue()));
-	}
-
-	@Test
-	public void parseFileFieldsFlowTest_1() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(1);
-		assertNotNull(record);
-	}
-
-	@Test
-	public void parseFileFieldsFlowTest_2() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(2);
-		assertNotNull(record);
-	}
-
-	@Test
-	public void parseFileFieldsFlowTest_3() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(3);
-		assertNotNull(record);
-	}
-
-	@Test
-	public void parseFileFieldsFlowTest_4() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(4);
-		assertNotNull(record);
-	}
-
-	@Test
-	public void parseFileFieldsFlowTest_5() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(5);
-		assertNotNull(record);
-	}
-
-	@Test
-	public void parseFileFieldsFlowTest_6() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(6);
-		assertNotNull(record);
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+			if (reader.ready()) {
+				Record record = parser.parse(reader.readLine());
+				record.getFields().keySet().stream()
+						.forEach(key -> System.out.format("Key : [%s], Value : [%s]" + System.lineSeparator(), key,
+								record.getFields().get(key).getValue()));
+			}
+		}
 	}
 
 	@Test
 	public void parseFileFieldsLengthTest_1() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(1);
-		for (File file : File.values()) {
-			if (record.getFields().get(file.toString()) != null)
-				assertEquals(file.getSize(), record.getFields().get(file.toString()).getValue().length());
-		}
-	}
-
-	@Test
-	public void parseFileFieldsLengthTest_2() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(2);
-		for (File file : File.values()) {
-			if (record.getFields().get(file.toString()) != null)
-				assertEquals(file.getSize(), record.getFields().get(file.toString()).getValue().length());
-		}
-	}
-
-	@Test
-	public void parseFileFieldsLengthTest_3() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(3);
-		for (File file : File.values()) {
-			if (record.getFields().get(file.toString()) != null)
-				assertEquals(file.getSize(), record.getFields().get(file.toString()).getValue().length());
-		}
-	}
-
-	@Test
-	public void parseFileFieldsLengthTest_4() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(4);
-		for (File file : File.values()) {
-			if (record.getFields().get(file.toString()) != null)
-				assertEquals(file.getSize(), record.getFields().get(file.toString()).getValue().length());
-		}
-	}
-
-	@Test
-	public void parseFileFieldsLengthTest_5() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(5);
-		for (File file : File.values()) {
-			if (record.getFields().get(file.toString()) != null)
-				assertEquals(file.getSize(), record.getFields().get(file.toString()).getValue().length());
-		}
-	}
-
-	@Test
-	public void parseFileFieldsLengthTest_6() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(6);
-		for (File file : File.values()) {
-			if (record.getFields().get(file.toString()) != null)
-				assertEquals(file.getSize(), record.getFields().get(file.toString()).getValue().length());
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+			while (reader.ready()) {
+				Record record = parser.parse(reader.readLine());
+				for (File file : File.values()) {
+					if (record.getFields().get(file.toString()) != null)
+						assertEquals(file.getSize(), record.getFields().get(file.toString()).getValue().length());
+				}
+			}
 		}
 	}
 
 	@Test
 	public void parseFileFieldsValueTest_1() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(1);
-		System.out.println(System.lineSeparator());
-		record.getFields().keySet().stream()
-				.forEach(key -> System.out.format("Key_1 : [%s], Value : [%s]" + System.lineSeparator(), key,
-						record.getFields().get(key).getValue()));
-	}
-
-	@Test
-	public void parseFileFieldsValueTest_2() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(2);
-		System.out.println(System.lineSeparator());
-		record.getFields().keySet().stream()
-				.forEach(key -> System.out.format("Key_2 : [%s], Value : [%s]" + System.lineSeparator(), key,
-						record.getFields().get(key).getValue()));
-	}
-
-	@Test
-	public void parseFileFieldsValueTest_3() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(3);
-		System.out.println(System.lineSeparator());
-		record.getFields().keySet().stream()
-				.forEach(key -> System.out.format("Key_3 : [%s], Value : [%s]" + System.lineSeparator(), key,
-						record.getFields().get(key).getValue()));
-	}
-
-	@Test
-	public void parseFileFieldsValueTest_4() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(4);
-		System.out.println(System.lineSeparator());
-		record.getFields().keySet().stream()
-				.forEach(key -> System.out.format("Key_4 : [%s], Value : [%s]" + System.lineSeparator(), key,
-						record.getFields().get(key).getValue()));
-	}
-
-	@Test
-	public void parseFileFieldsValueTest_5() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(5);
-		System.out.println(System.lineSeparator());
-		record.getFields().keySet().stream()
-				.forEach(key -> System.out.format("Key_5 : [%s], Value : [%s]" + System.lineSeparator(), key,
-						record.getFields().get(key).getValue()));
-	}
-
-	@Test
-	public void parseFileFieldsValueTest_6() throws ParseException, IOException {
-		Record record = Lists.newArrayList(parser.parse(path)).get(6);
-		System.out.println(System.lineSeparator());
-		record.getFields().keySet().stream()
-				.forEach(key -> System.out.format("Key_6 : [%s], Value : [%s]" + System.lineSeparator(), key,
-						record.getFields().get(key).getValue()));
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+			while (reader.ready()) {
+				Record record = parser.parse(reader.readLine());
+				record.getFields().keySet().stream()
+						.forEach(key -> System.out.format("Key : [%s], Value : [%s]" + System.lineSeparator(), key,
+								record.getFields().get(key).getValue()));
+				System.out.println(System.lineSeparator());
+			}
+		}
 	}
 
 }

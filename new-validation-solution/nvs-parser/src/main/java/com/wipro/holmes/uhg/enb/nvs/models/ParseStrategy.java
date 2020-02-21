@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ParseStrategy {
-	GSF_1_3("GSF_1.3"), GSF_1_5("GSF_1.5"), HIPPA_834("HIPPA_834");
+	GSF_1_3(Constants.GSF_1_3), GSF_1_5(Constants.GSF_1_5), HIPPA_834(Constants.HIPPA_834);
 
 	private final String strategy;
 

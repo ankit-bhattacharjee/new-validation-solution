@@ -1,16 +1,17 @@
 package com.wipro.holmes.uhg.enb.nvs.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collection;
-import com.wipro.holmes.uhg.enb.nvs.models.ParseStrategy;
 
 public interface ParserService<T> {
 
 	/*
-	 * Reads document by Path, and return Collection of Record(s) based on Strategy.
-	 * In pipe, to add OutputStream for large files.
+	 * Responsible for the construction and publishing of the domain model T. Reads
+	 * the resource by path and forwards to an appropriate parser, to get the domain
+	 * representation. This T is then, published to some resource for consumption.
 	 * 
-	 * @param Path to file to be parsed, ParseStrategy to be used
+	 * @param Path to file to be parsed
 	 * 
 	 * @return Collection<T> objects parsed from the file, by lines
 	 * 
@@ -18,6 +19,29 @@ public interface ParserService<T> {
 	 * 
 	 */
 
-	Collection<T> parse(Path path, ParseStrategy strategy) throws Exception;
+	void parseAndPublish(Path path) throws Exception;
+
+	/*
+	 * Default implementation of returning a safe file from this path.
+	 * 
+	 * @param Path to file
+	 * 
+	 * @return file to consume content from
+	 * 
+	 * @throws IOException
+	 */
+
+	default File read(Path path) throws IOException {
+		File file = path.toFile();
+		if (!file.exists())
+			throw new IOException("Does not exist!");
+		if (!file.isFile())
+			throw new IOException("Not a file!");
+		if (file.isHidden())
+			throw new IOException("Is hidden!");
+		if (!file.canRead())
+			throw new IOException("No read permission!");
+		return file;
+	}
 
 }

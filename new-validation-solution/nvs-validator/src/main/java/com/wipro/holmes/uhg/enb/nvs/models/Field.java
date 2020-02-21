@@ -10,20 +10,14 @@ import lombok.Data;
 @AllArgsConstructor
 public class Field {
 	private final String name;
-	private final int size;
 	private final String value;
 	private Optional<String> error;
 
-	public Field(String name, int size, String value) {
+	public Field(String name, String value) {
 		super();
 		this.name = name;
-		this.size = size;
 		this.value = value;
 		error = Optional.empty();
-	}
-
-	public int getSize() {
-		return size;
 	}
 
 	public String getValue() {
