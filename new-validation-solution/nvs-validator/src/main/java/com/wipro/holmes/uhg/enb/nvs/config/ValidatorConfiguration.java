@@ -41,7 +41,7 @@ public class ValidatorConfiguration {
 	public ConsumerFactory<String, Record> consumerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "parser-producers-gsf-1.3");
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, "producers-parser-gsf-1-3");
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 		props.put(JsonDeserializer.TRUSTED_PACKAGES, "com.wipro.holmes.uhg.enb.nvs.models");

@@ -17,8 +17,8 @@ public class ValidatorServiceImpl implements ValidatorService<Record> {
 	private KieServices kieServices;
 	private KieContainer kContainer;
 	private final KafkaTemplate<String, Record> template;
-	private static final String CONSUMER_TOPIC_NAME = "parser-producers-gsf-1.3";
-	private static final String PRODUCER_TOPIC_NAME = "validator-producers-gsf-1.3";
+	private static final String CONSUMER_TOPIC_NAME = "producers-parser-gsf-1-3";
+	private static final String PRODUCER_TOPIC_NAME = "producers-validator-gsf-1-3";
 
 	public ValidatorServiceImpl(KafkaTemplate<String, Record> template) {
 		kieServices = KieServices.Factory.get();
