@@ -5,9 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 	<modules>
-		<module>nvs-parser</module>
-		<module>nvs-validator</module>
-		<module>nvs-persistor</module>
+		<module>esp-orchestrator</module>
+		<module>esp-parser</module>
+		<module>esp-validator</module>
+		<module>esp-persistor</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -15,17 +16,22 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.wipro.holmes.uhg.enb.nvs</groupId>
-	<artifactId>new-validation-solution</artifactId>
+	<groupId>com.wipro.holmes.uhg.enb.esp</groupId>
+	<artifactId>electronic-submission-portal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>new-validation-solution</name>
-	<description>Parent for other components, within the nvs solution bundle.</description>
+	<name>electronic-submission-portal</name>
+	<description>Parent for the other components, within the esp solution
+		bundle.</description>
 
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
