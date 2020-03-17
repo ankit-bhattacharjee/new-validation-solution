@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.FileSystemResource;
 import com.wipro.holmes.uhg.enb.esp.models.Record;
 import com.wipro.holmes.uhg.enb.esp.services.gsf.v1_5.GsfParser;
-import com.wipro.holmes.uhg.enb.esp.specs.gsf.v1_5.Fields.File;
 import com.wipro.holmes.uhg.enb.esp.specs.gsf.v1_5.Fields.Header;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,10 +33,10 @@ public class GsfParserTests {
 
 	@Test
 	public void parseHeaderFieldsFlowTest() throws ParseException, IOException {
-		long id = System.currentTimeMillis();
+		String fileId = String.valueOf(System.currentTimeMillis());
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			if (reader.ready()) {
-				Record record = parser.parse(id, reader.readLine());
+				Record record = parser.parse(fileId, reader.readLine());
 				assertNotNull(record);
 				assertEquals(headerFieldsCount, record.getFields().size());
 			}
@@ -46,10 +45,10 @@ public class GsfParserTests {
 
 	@Test
 	public void parseHeaderFieldsLengthTest() throws ParseException, IOException {
-		long id = System.currentTimeMillis();
+		String fileId = String.valueOf(System.currentTimeMillis());
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			if (reader.ready()) {
-				Record record = parser.parse(id, reader.readLine());
+				Record record = parser.parse(fileId, reader.readLine());
 				for (Header header : Header.values()) {
 					assertEquals(header.getSize(), record.getFields().get(0).getValue().length());
 				}
@@ -59,12 +58,12 @@ public class GsfParserTests {
 
 	@Test
 	public void parseHeaderFieldsValueTest() throws ParseException, IOException {
-		long id = System.currentTimeMillis();
+		String fileId = String.valueOf(System.currentTimeMillis());
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			if (reader.ready()) {
-				Record record = parser.parse(id, reader.readLine());
+				Record record = parser.parse(fileId, reader.readLine());
 				record.getFields().forEach(field -> System.out
-						.format("ID : [%s], Value : [%s]" + System.lineSeparator(), String.valueOf(id), field));
+						.format("ID : [%s], Value : [%s]" + System.lineSeparator(), String.valueOf(fileId), field));
 			}
 		}
 	}
@@ -85,12 +84,12 @@ public class GsfParserTests {
 
 	@Test
 	public void parseFileFieldsValueTest_1() throws ParseException, IOException {
-		long id = System.currentTimeMillis();
+		String fileId = String.valueOf(System.currentTimeMillis());
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
 			while (reader.ready()) {
-				Record record = parser.parse(id, reader.readLine());
+				Record record = parser.parse(fileId, reader.readLine());
 				record.getFields().forEach(field -> System.out
-						.format("ID : [%s], Value : [%s]" + System.lineSeparator(), String.valueOf(id), field));
+						.format("ID : [%s], Value : [%s]" + System.lineSeparator(), String.valueOf(fileId), field));
 				System.out.println(System.lineSeparator());
 			}
 		}

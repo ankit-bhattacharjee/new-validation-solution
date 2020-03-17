@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 
-@Document(collection = "record")
+@Document(collection = "records")
 @Data
 @JsonPropertyOrder({ "fileId", "_id", "fields" })
 public class Record {
@@ -18,7 +18,7 @@ public class Record {
 	@Id
 	@JsonProperty("recordId")
 	private String _id;
-	private long fileId;
+	private String fileId;
 	private List<Field> fields;
 
 	public Record() {

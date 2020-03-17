@@ -1,12 +1,11 @@
 package com.wipro.holmes.uhg.enb.esp.models;
 
-import java.lang.Number;
-import java.util.Optional;
-
-rule "relationship"
-	dialect "mvel"
+rule "Relation"
+	dialect "java"
 	when
-		field : Field( name == "Relationship" && value.trim().length() > 0 )
+		field : Field( name == "Relationship" , value == null || value.length() != 2 || value not in ( "EE", "SP", "CH", "ST", "RR", "SS", "CD", "SD", "SC", "HC", "HS", "NB", "DP", "OT" ) )
 	then
-		field.setError( "Relationship Cannot Be Blank!");
+		
+		System.out.println("Relationship is required for each row. Valid entries are: EE, SP, CH, ST, RR, SS, CD, SD, SC, HC, HS, NB, DP, OT");
+		field.setError( "Relationship is required for each row. Valid entries are: EE, SP, CH, ST, RR, SS, CD, SD, SC, HC, HS, NB, DP, OT" );
 end

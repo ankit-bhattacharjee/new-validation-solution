@@ -27,13 +27,15 @@ public class GsfParserTestsIT {
 
 	@Autowired
 	@Qualifier(GSF_1_3 + PARSER)
-	private Parser<Long, Record> parser;
+	private Parser<String, Record> parser;
 	private Path path;
+	private String fileId;
 
 	@BeforeEach
 	public void setUp() throws IOException {
 		path = Path.of(new FileSystemResource("src/test/resources/documents/Enrollment_Template.xlsm").getPath())
 				.toAbsolutePath();
+		fileId = "5e61dba3fbf69a67afb914cb";
 	}
 
 	@Test
@@ -42,7 +44,6 @@ public class GsfParserTestsIT {
 		try (Workbook workbook = StreamingReader.builder().rowCacheSize(100).bufferSize(4096).open(path.toFile())) {
 			Iterator<Row> rowIterator = workbook.getSheet("Enrollment Template").iterator();
 			int count = 0;
-			long fileId = System.currentTimeMillis();
 			while (rowIterator.hasNext()) {
 				if (count++ == 0)
 					continue;
@@ -59,7 +60,6 @@ public class GsfParserTestsIT {
 			throws ParseException, IOException, EncryptedDocumentException, InvalidFormatException {
 		try (Workbook workbook = StreamingReader.builder().rowCacheSize(100).bufferSize(4096).open(path.toFile())) {
 			Iterator<Row> rowIterator = workbook.getSheet("Enrollment Template").iterator();
-			long fileId = System.currentTimeMillis();
 			while (rowIterator.hasNext()) {
 				Record record = parser.parse(fileId, rowIterator.next());
 				assertNotNull(record);

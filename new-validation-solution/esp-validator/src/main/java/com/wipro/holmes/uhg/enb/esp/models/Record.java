@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Record {
-	private long fileId;
+	private String fileId;
 	private List<Field> fields;
 
 }

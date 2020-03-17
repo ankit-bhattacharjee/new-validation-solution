@@ -7,10 +7,10 @@ import lombok.Data;
 
 @Data
 public class Record {
-	private final long fileId;
+	private final String fileId;
 	private final List<Field> fields;
 
-	public Record(long fileId) {
+	public Record(String fileId) {
 		this.fileId = fileId;
 		fields = new ArrayList<>();
 	}

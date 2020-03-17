@@ -15,10 +15,10 @@ import com.wipro.holmes.uhg.enb.esp.specs.gsf.v1_3.Fields;
 
 @Service(GSF_1_3 + PARSER)
 @Qualifier(GSF_1_3 + PARSER)
-public class GsfParser implements Parser<Long, Record> {
+public class GsfParser implements Parser<String, Record> {
 
 	@Override
-	public Record parse(Long fileId, Object physicalRecord) {
+	public Record parse(String fileId, Object physicalRecord) {
 		Row row = (Row) physicalRecord;
 		Record domainRecord = new Record(fileId);
 		for (Fields file : Fields.values()) {

@@ -8,12 +8,14 @@ public interface ParserService {
 	 * representation. This representation is then published to some resource for
 	 * consumption.
 	 * 
-	 * @param String path to file to be parsed
+	 * @param String fileId to be parsed
+	 * 
+	 * @return int no. of records processed
 	 * 
 	 * @throws Exception depending on the implementation
 	 * 
 	 */
 
-	void parseAndPublish(String path) throws Exception;
+	int parseAndPublish(String fileId) throws Exception;
 
 }
